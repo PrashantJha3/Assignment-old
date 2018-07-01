@@ -1,0 +1,83 @@
+﻿<div class="container-item emp-container" ng-controller="homeController" id="homePage">    
+    <a class="brand " href="#/add">
+      <input type="button" value="Add Employee">
+    </a> 
+     <form>
+       <div class="form-group">
+         <div class="input-group">
+           <div class="input-group-addon"></div>
+           <input type="text" class="form-control" placeholder="Search Name/City" ng-model="filterText">
+         </div>      
+       </div>
+     </form>
+     
+     <table class="table table-bordered table-striped">
+       
+       <thead>
+         <tr>
+           <td>
+             <a ng-click="sortType = 'id'; sortReverse = !sortReverse" class="pointer font-bold">
+               Id 
+               <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+           <td>
+             <a ng-click="sortType = 'name'; sortReverse = !sortReverse" class="pointer font-bold">
+             Name
+               <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+           <td>
+             <a ng-click="sortType = 'phone'; sortReverse = !sortReverse" class="pointer font-bold">
+             Phone 
+               <span ng-show="sortType == 'phone' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'phone' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+           <td>
+             <a ng-click="sortType = 'city'; sortReverse = !sortReverse" class="pointer font-bold">
+               City 
+               <span ng-show="sortType == 'city' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'city' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+           <td>
+             <a ng-click="sortType = 'address_line1'; sortReverse = !sortReverse" class="pointer font-bold">
+             Address 1
+               <span ng-show="sortType == 'address_line1' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'address_line1' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+           <td>
+             <a ng-click="sortType = 'address_line2'; sortReverse = !sortReverse" class="pointer font-bold">
+             Address 2 
+               <span ng-show="sortType == 'address_line2' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'address_line2' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+           <td>
+             <a ng-click="sortType = 'postal_code'; sortReverse = !sortReverse" class="pointer font-bold">
+             Postal Code 
+               <span ng-show="sortType == 'postal_code' && !sortReverse" class="fa fa-caret-down"></span>
+               <span ng-show="sortType == 'postal_code' && sortReverse" class="fa fa-caret-up"></span>
+             </a>
+           </td>
+         </tr>
+       </thead>
+       
+       <tbody>
+         <tr ng-repeat="data in empData | orderBy:sortType:sortReverse | myTableFilter:filterText">
+           <td>{{ data.id }}</td>
+           <td>{{ data.name }}</td>
+           <td>{{ data.phone }}</td>
+           <td>{{ data.address.city }}</td>
+           <td>{{ data.address.address_line1 }}</td>
+           <td>{{ data.address.address_line2 }}</td>
+           <td>{{ data.address.postal_code }}</td>
+         </tr>
+       </tbody>
+     </table>
+
+</div>

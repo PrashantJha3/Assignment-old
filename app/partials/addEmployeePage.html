@@ -1,0 +1,21 @@
+<div ng-controller="addEmployeeController"> 
+	<div class="container form-padding">
+		
+		<input class="form-control" type="text" placeholder="Name" name="nameInput" ng-model="nameInput" required ng-class="nameInput ? '' : 'check'" ng-minlength="4">
+
+		<input class="form-control" type="text" placeholder="Id" ng-model="idInput">
+		
+		<input class="form-control" type="number" placeholder="Phone" name="phoneInput" ng-model="phoneInput" required ng-class="phoneInput ? '' : 'check'">
+		
+		<input class="form-control" type="text" placeholder="City" ng-model="cityInput">
+	
+		<input class="form-control" type="text" placeholder="Address1" ng-model="address1Input">
+	
+		<input class="form-control" type="text" placeholder="Address2" ng-model="address2Input">
+		
+		<input class="form-control" type="text" placeholder="Postal Code" ng-model="pstCodeInput">
+
+		<a href="#/home"><input type="submit" value="Save" ng-click="submit()" ></a>
+		
+	</div> 
+</div>

@@ -1,0 +1,90 @@
+﻿
+app.controller('homeController', function ($scope,$rootScope) {
+
+    //I like to have an init() for controllers that need to perform some initialization. 
+    // Keeps things in one place
+    init();
+
+    function init() {
+       
+       $scope.sortType     = 'id'; // set the default sort type
+       $scope.sortReverse  = false;  // set the default sort order
+       $scope.myTableFilter   = '';     // set the default search/filter term
+       $scope.empData = [];
+       $rootScope.$on("employeeDetails", function(event,employeeDtls){
+         $rootScope.empDataAdded = employeeDtls;
+         console.log("employeeDtls",employeeDtls);
+       });
+       $scope.empData = [{
+            "id": 1,
+            "name": "Jhon",
+            "phone": "9999999999",
+            "address": {
+                "city": "Pune",
+                "address_line1": "ABC road",
+                "address_line2": "XYZ building",
+                "postal_code": "12455"
+            }
+        }, {
+            "id": 2,
+            "name": "Jacob",
+            "phone": "AZ99A99PQ9",
+            "address": {
+                "city": "Pune",
+                "address_line1": "PQR road",
+                "address_line2": "ABC building",
+                "postal_code": "13455"
+            }
+        }, {
+            "id": 3,
+            "name": "Ari",
+            "phone": "Pune",
+            "address": {
+                "city": "Mumbai",
+                "address_line1": "ABC road",
+                "address_line2": "XYZ building",
+                "postal_code": "12455"
+            }
+        }];
+        if($rootScope.empDataAdded && $rootScope.empDataAdded.name && $rootScope.empDataAdded.phone){
+          $scope.empData.push($rootScope.empDataAdded);
+        }
+      };
+      
+});
+app.filter('myTableFilter', function(){
+  // Just add arguments to your HTML separated by :
+  // And add them as parameters here, for example:
+  // return function(dataArray, searchTerm, argumentTwo, argumentThree) {
+  return function(dataArray, searchTerm) {
+      // If no array is given, exit.
+      if (!dataArray) {
+          return;
+      }
+      // If no search term exists, return the array unfiltered.
+      else if (!searchTerm) {
+        var originalData = dataArray;
+        var manipulatedData = [];
+        originalData.forEach(function (arrayItem) {
+          if(isNaN(parseInt(arrayItem.phone))){
+            arrayItem.phone = "NA";
+          }
+          manipulatedData.push(originalData);
+        });
+        
+          return dataArray;
+      }
+      // Otherwise, continue.
+      else {
+           // Convert filter text to lower case.
+           var term = searchTerm.toLowerCase();
+           // Return the array and filter it by looking for any occurrences of the search term in each items id or name. 
+           return dataArray.filter(function(data){
+              var termInId = data.address.city.toLowerCase().indexOf(term) > -1;
+              var termInName = data.name.toLowerCase().indexOf(term) > -1;
+              return termInId || termInName;
+           });
+      }
+  }    
+});
+
